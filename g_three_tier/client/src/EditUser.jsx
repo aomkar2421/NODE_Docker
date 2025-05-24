@@ -9,6 +9,8 @@ const EditUser = () => {
     const params = useParams();
     const id = params.id;
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -21,7 +23,7 @@ const EditUser = () => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:4500/" + id)
+        axios.get( `${apiUrl}/`+id)
             .then((res) => {
                 if (res.data.length > 0) {
                     setData(res.data[0]); // Use the first item
@@ -36,7 +38,7 @@ const EditUser = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         console.log("user data ", data);
-        axios.put("http://localhost:4500/update/" + id, data)
+        axios.put(`${apiUrl}/update/` + id, data)
             .then((res) => {
                 console.log(res.data);
                 navigate("/");

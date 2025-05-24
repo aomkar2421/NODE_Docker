@@ -9,8 +9,10 @@ const Home = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const fetchUsers = () => {
-        axios.get("http://localhost:4500/")
+        axios.get(`${apiUrl}/`)
             .then((res) => setData(res.data))
             .catch((err) => console.log("Error fetching users"));
     };
@@ -20,7 +22,7 @@ const Home = () => {
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete("http://localhost:4500/delete/" + id)
+        axios.delete(`${apiUrl}/delete/`+ id)
             .then(res => {
                 toast("Deleted successfully");
                 fetchUsers();

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 
 const AddUser = () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
     const [data, setData] = useState({
@@ -20,7 +21,7 @@ const AddUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("user data ", data);
-        axios.post("http://localhost:4500/create", data)
+        axios.post(`${apiUrl}/create`, data)
             .then((res) => {
                 console.log(res.data);
                 navigate("/");

@@ -1,3 +1,5 @@
+console.log("\n\n\n Docker container started \n")
+
 const books = [
     { title: 'Book One', genre: 'Fiction', publish: 1981, edition: 2004 },
     { title: 'Book Two', genre: 'Non-Fiction', publish: 1992, edition: 2008 },
@@ -15,3 +17,5 @@ let abc=books.filter((bk)=>{
 })
 
 console.log(abc)
+
+console.log("\n\n Docker container stoped \n\n\n")
