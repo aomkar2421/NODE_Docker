@@ -1,0 +1,50 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mern_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mern
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mern_net
+
+  backend:
+    build:
+      context: ./server
+    container_name: mern_backend
+    restart: unless-stopped
+    ports:
+      - "4500:4500"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mern_mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: mern
+    networks:
+      - mern_net
+
+  frontend:
+    build:
+      context: ./client
+    container_name: mern_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - mern_net
+
+volumes:
+  mysql-data:
+
+networks:
+  mern_net:
+    driver: bridge

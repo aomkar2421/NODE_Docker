@@ -2,8 +2,14 @@
 FROM node:18 AS builder
 
 WORKDIR /app
-COPY . .
+
+# COPY . .
+# RUN npm install --production
+
+COPY package*.json ./
 RUN npm install --production
+
+COPY . .
 
 # Stage 2 - Runner
 FROM node:18-slim
